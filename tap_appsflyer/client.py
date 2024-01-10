@@ -46,7 +46,7 @@ class AppsflyerClient:
 
     def __init__(self, config):
         self.config = config
-        self.base_url = "https://hq.appsflyer.com"
+        self.base_url = "https://hq1.appsflyer.com"
         self.base_url_path = "export/{app_id}"
 
     def _get_request_intervals(self, report_name, from_datetime, to_datetime):
