@@ -95,6 +95,11 @@ class AppsflyerClient:
         if "user_agent" in self.config:
             headers["User-Agent"] = self.config["user_agent"]
 
+        if len(self.config["api_token"]) > 36:
+            headers["Authorization"] = "Bearer " + self.config["api_token"]
+        else:
+            params["api_token"] = self.config["api_token"]        
+        
         req = requests.Request("GET", url, params=params, headers=headers).prepare()
         LOGGER.info(
             "GET {0} | Date interval: from {1} to {2} : retargeting : {3}:".format(
@@ -124,11 +129,6 @@ class AppsflyerClient:
         params = dict()
         params["from"] = from_datetime.strftime("%Y-%m-%d %H:%M")
         params["to"] = to_datetime.strftime("%Y-%m-%d %H:%M")
-
-        if len(self.config["api_token"]) > 36:
-            headers["Authorization"] = "Bearer " + self.config["api_token"]
-        else:
-            params["api_token"] = self.config["api_token"]
         
         return params
 
@@ -136,11 +136,6 @@ class AppsflyerClient:
         params = dict()
         params["from"] = from_datetime.strftime("%Y-%m-%d")
         params["to"] = to_datetime.strftime("%Y-%m-%d")
-
-        if len(self.config["api_token"]) > 36:
-            headers["Authorization"] = "Bearer " + self.config["api_token"]
-        else:
-            params["api_token"] = self.config["api_token"]
         
         return params
 
