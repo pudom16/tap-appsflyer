@@ -124,16 +124,24 @@ class AppsflyerClient:
         params = dict()
         params["from"] = from_datetime.strftime("%Y-%m-%d %H:%M")
         params["to"] = to_datetime.strftime("%Y-%m-%d %H:%M")
-        params["api_token"] = self.config["api_token"]
 
+        if len(self.config["api_token"]) > 36:
+            headers["Authorization"] = "Bearer " + self.config["api_token"]
+        else:
+            params["api_token"] = self.config["api_token"]
+        
         return params
 
     def _parse_daily_api_params(self, from_datetime, to_datetime):
         params = dict()
         params["from"] = from_datetime.strftime("%Y-%m-%d")
         params["to"] = to_datetime.strftime("%Y-%m-%d")
-        params["api_token"] = self.config["api_token"]
 
+        if len(self.config["api_token"]) > 36:
+            headers["Authorization"] = "Bearer " + self.config["api_token"]
+        else:
+            params["api_token"] = self.config["api_token"]
+        
         return params
 
     def get_raw_data(
